@@ -1,5 +1,6 @@
 // Import the mysql package
 const mysql = require('mysql2');
+var inquirer = require("inquirer");
 
 // Import Constants Choice Variables
 const [
@@ -14,25 +15,10 @@ const [
 
 // Import Prompt Functions
 const {
-    promptChoices, 
-    promptEmployeeName,
-    promptEmployeeRole,
-    promptSalary,
-    promptDepartment,
-    promptManager
-} = require('./lib/prompts');
+    promptChoices, promptEmployeeName, promptEmployeeRole, promptSalary, promptDepartment, promptManager} = require('./lib/prompts');
 
 // Import Query Functions
-const  {
-    getEmployees,
-    getManagers,
-    getRoles, 
-    getDepartments,
-    getEmployeeByManager,
-    AddEmployee,
-    AddRole,
-    AddDepartments
-} = require('./lib/queries');
+const  {getEmployees, getManagers, getRoles,  getDepartments, getEmployeeByManager, AddEmployee, AddRole, AddDepartments} = require('./lib/queries');
 
 
 // Connect to the employee_trackerDB database using a localhost connection
@@ -60,44 +46,44 @@ connection.connect(async (err) => {
 });
 
 async function editEmployeeDB() {
-
+    
     let answer, employee_name, range;
 
     answer = await promptChoices();
-
-    switch (answer.name) {
+    console.log(answer)
+    switch (answer.menu) {
         case ADD_EMPLOYEE:
             AddEmployee(connection);
             break;
 
         case ADD_DEPT:
-            range = await promptRange();
-            rangeSearch(connection, range.start, range.end);
+            // range = await promptRange();
+            AddDepartments(connection);
             break;
 
         case ADD_ROLE:
-            song = await promptEmployeeRole();
-            songSearch(connection,song.title);
+            // song = await promptEmployeeRole();
+            AddRole(connection);
             break;
 
-        case VIEW_EMPLOYEES:
-            artist = await promptArtistName();
-            songAndAlbumSearch(connection, artist.name);
-            break;
+        // case VIEW_EMPLOYEES:
+        //     // artist = await promptArtistName();
+        //     songAndAlbumSearch(connection, artist.name);
+        //     break;
         
-        case VIEW_ROLES:
-            artist = await promptArtistName();
-            songAndAlbumSearch(connection, artist.name);
-            break;
+        // case VIEW_ROLES:
+        //     // artist = await promptArtistName();
+        //     songAndAlbumSearch(connection, artist.name);
+        //     break;
         
-        case VIEW_DEPTS:
-            artist = await promptArtistName();
-            songAndAlbumSearch(connection, artist.name);
-            break;
+        // case VIEW_DEPTS:
+        //     // artist = await promptArtistName();
+        //     songAndAlbumSearch(connection, artist.name);
+        //     break;
         
-        case UPDATE_EMPLOYEE_ROLE:
-            artist = await promptArtistName();
-            songAndAlbumSearch(connection, artist.name);
-            break;
+        // case UPDATE_EMPLOYEE_ROLE:
+        //     // artist = await promptArtistName();
+        //     songAndAlbumSearch(connection, artist.name);
+        //     break;
     };
 }
