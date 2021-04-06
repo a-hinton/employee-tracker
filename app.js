@@ -4,6 +4,7 @@ var inquirer = require("inquirer");
 
 // Import Constants Choice Variables
 const [
+    ADD_MANAGER,
     ADD_EMPLOYEE,
     ADD_DEPT,
     ADD_ROLE,
@@ -14,8 +15,7 @@ const [
 ] = require('./lib/const');
 
 // Import Prompt Functions
-const {
-    promptChoices, promptEmployeeName, promptEmployeeRole, promptSalary, promptDepartment, promptManager} = require('./lib/prompts');
+const {promptChoices, promptEmployeeName, promptEmployeeRole, promptAddRole, promptSalary, promptDepartment, promptManager} = require('./lib/prompts');
 
 // Import Query Functions
 const  {getEmployees, getManagers, getRoles,  getDepartments, getEmployeeByManager, AddEmployee, AddRole, AddDepartments} = require('./lib/queries');
@@ -25,16 +25,12 @@ const  {getEmployees, getManagers, getRoles,  getDepartments, getEmployeeByManag
 const connection = mysql.createConnection({
     host: 'localhost',
 
-    // Your port, if not 3306
     port: 3306,
 
-    // Your MySQL username
     user: 'root',
 
-    // Your MySQL password (leave blank for class demonstration purposes; fill in later)
     password: 'password',
 
-    // Name of database
     database: 'employee_trackerDB',
 });
 
@@ -46,23 +42,24 @@ connection.connect(async (err) => {
 });
 
 async function editEmployeeDB() {
-    
+    console.log("whassup")
     let answer, employee_name, range;
 
     answer = await promptChoices();
     console.log(answer)
+    // AddEmployee(connection);
     switch (answer.menu) {
         case ADD_EMPLOYEE:
             AddEmployee(connection);
             break;
 
         case ADD_DEPT:
-            // range = await promptRange();
+            range = await promptRange();
             AddDepartments(connection);
             break;
 
         case ADD_ROLE:
-            // song = await promptEmployeeRole();
+            role = await promptAddRole();
             AddRole(connection);
             break;
 

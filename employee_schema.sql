@@ -8,7 +8,9 @@ CREATE TABLE employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
-    manager_id INT
+    salary decimal(10,2) NOT NULL,
+    manager_id INT,
+    is_manager BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE department (
@@ -19,6 +21,5 @@ CREATE TABLE department (
 CREATE TABLE role (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
-    salary decimal(10,2) NOT NULL,
     department_id INT NOT NULL
 );
